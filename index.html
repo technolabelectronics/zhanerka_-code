@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Courier; color: #6d6d6d; -webkit-text-stroke: #6d6d6d; background-color: #f4f4f4}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px Courier; color: #6d6d6d; -webkit-text-stroke: #6d6d6d; background-color: #f4f4f4; min-height: 13.0px}
+    span.s1 {font-kerning: none}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;ESP12E, Thingspeak, GPS and Google Map&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="initial-scale=1.0, user-scalable=no"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="utf-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>/* Always set the map height explicitly to define the size of the div</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>* element that contains the map. */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>#map {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>height: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>/* Optional: Makes the sample page fill the window. */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>html, body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>height: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://maps.googleapis.com/maps/api/js?key=Your_Google_Map_API_key"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>var map;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var x;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function loadmaps(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>$.getJSON("https://api.thingspeak.com/channels/Thingspeak_channel_id/fields/1/last.json?api_key=Your_thingspeak_read_api_key", function(result){</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        <span class="Apple-tab-span">	</span></span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>var m = result;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>x=Number(m.field1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                           </span>//alert(x);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>$.getJSON("https://api.thingspeak.com/channels/Thingspeak_channel_id/fields/2/last.json?api_key=Your_thingspeak_read_api_key", function(result){</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        <span class="Apple-tab-span">	</span></span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>var m = result;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>y=Number(m.field2);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}).done(function() {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>initialize();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>window.setInterval(function(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>loadmaps();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}, 9000);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>function initialize() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>//alert(y);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var mapOptions = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>zoom: 18,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>center: {lat: x, lng: y}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>map = new google.maps.Map(document.getElementById('map'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>mapOptions);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var marker = new google.maps.Marker({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>position: {lat: x, lng: y},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>map: map</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var infowindow = new google.maps.InfoWindow({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>content: '&lt;p&gt;Marker Location:' + marker.getPosition() + '&lt;/p&gt;'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>google.maps.event.addListener(marker, 'click', function() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>infowindow.open(map, marker);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>google.maps.event.addDomListener(window, 'load', initialize);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="map"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
